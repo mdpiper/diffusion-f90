@@ -33,3 +33,6 @@
 
 # Emacs backups
 *~
+
+# My standard build directory
+_build
