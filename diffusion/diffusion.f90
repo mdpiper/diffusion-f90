@@ -46,8 +46,8 @@ contains
     model%dx = 1.
     model%dy = 1.
 
-    allocate(model%density(model%n_x, model%n_y))
-    allocate(model%density_tmp(model%n_x, model%n_y))
+    allocate(model%density(model%n_y, model%n_x))
+    allocate(model%density_tmp(model%n_y, model%n_x))
 
     model%density = 0.
     model%density_tmp = 0.
@@ -59,14 +59,12 @@ contains
   subroutine set_boundary_conditions(z)
     implicit none
     real, dimension (:,:), intent (out) :: z
+    integer :: i, top_x
 
-    integer :: i
-    real :: top_x
+    top_x = size(z, 2)-1
 
-    top_x = size(z, 1)-1
-
-    do i = 0, size(z, 1)-1
-       z(i+1,1) = top_x**2*.25 - (i-top_x*.5)**2
+    do i = 0, top_x
+       z(1,i+1) = 0.25*top_x**2 - (i - 0.5*top_x)**2
     end do
   end subroutine set_boundary_conditions
 
