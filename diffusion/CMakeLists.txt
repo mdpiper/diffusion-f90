@@ -14,6 +14,13 @@ include_directories (${CMAKE_CURRENT_SOURCE_DIR})
 set (diffusion_lib_sources diffusion.f90)
 add_library (diffusion ${diffusion_lib_sources})
 
+set (diffusion_sources main.f90 diffusion.f90)
+add_executable (run_diffusion ${diffusion_sources})
+
+install (
+  PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/run_diffusion
+  DESTINATION bin
+  COMPONENT diffusion)
 install (
   TARGETS diffusion
   DESTINATION lib
