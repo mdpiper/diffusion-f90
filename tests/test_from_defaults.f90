@@ -4,8 +4,6 @@ program test_model_sanity_from_defaults
   implicit none
 
   type (diffusion_model) :: m
-  integer :: i, j
-  character(len=30) :: rowfmt
 
   write(*,"(a)",advance="no") "Initializing..."
   call initialize_from_defaults(m)

@@ -5,8 +5,6 @@ program test_model_sanity_from_file
 
   type (diffusion_model) :: m
   character (len=8) :: cfg_file = "test.cfg"
-  integer :: i, j
-  character(len=30) :: rowfmt
 
   write(*,"(a20, a8)") "Configuration file: ", cfg_file
   write(*,"(a)", advance="no") "Initializing..."
