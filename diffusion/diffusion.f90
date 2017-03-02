@@ -18,28 +18,31 @@ module diffusion
      real, pointer :: density_tmp(:,:)
   end type diffusion_model
 
-  type(diffusion_model) :: model
-
 contains
 
-  subroutine initialize_from_file(config_file)
+  subroutine initialize_from_file(model, config_file)
     character (len=*), intent (in) :: config_file
+    type (diffusion_model), intent (out) :: model
 
     open(15, file=config_file)
     read(15, *) model%dt, model%t_end, model%n_x, model%n_y
     close(15)
-    call initialize()
+    call initialize(model)
   end subroutine initialize_from_file
 
-  subroutine initialize_from_defaults()
+  subroutine initialize_from_defaults(model)
+    type (diffusion_model), intent (out) :: model
+
     model%dt = 5.
     model%t_end = 20.
     model%n_x = 10
     model%n_y = 20
-    call initialize()
+    call initialize(model)
   end subroutine initialize_from_defaults
 
-  subroutine initialize()
+  subroutine initialize(model)
+    type (diffusion_model), intent (inout) :: model
+
     model%t = 0.
     model%dx = 1.
     model%dy = 1.
@@ -68,9 +71,17 @@ contains
     end do
   end subroutine setBC
 
-  subroutine cleanup()
+  subroutine cleanup(model)
+    type (diffusion_model), intent (inout) :: model
+
     deallocate (model%density)
     deallocate (model%density_tmp)
   end subroutine cleanup
+
+  ! subroutine solve_2d()
+  ! end subroutine solve_2d
+
+  ! subroutine advance_in_time()
+  ! end subroutine advance_in_time
 
 end module diffusion
