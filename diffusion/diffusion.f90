@@ -110,4 +110,27 @@ contains
     end do
   end subroutine solve_2d
 
+  subroutine print_info(model)
+    type (diffusion_model), intent (in) :: model
+
+    write(*,"(a10, i8)") "n_x:", model%n_x
+    write(*,"(a10, i8)") "n_y:", model%n_y
+    write(*,"(a10, f8.2)") "dx:", model%dx
+    write(*,"(a10, f8.2)") "dy:", model%dy
+    write(*,"(a10, f8.2)") "dt:", model%dt
+    write(*,"(a10, f8.2)") "t:", model%t
+    write(*,"(a10, f8.2)") "t_end:", model%t_end
+  end subroutine print_info
+
+  subroutine print_values(model)
+    type (diffusion_model), intent (in) :: model
+    integer :: i, j
+    character(len=30) :: rowfmt
+
+    write(rowfmt,'(a,i4,a)') '(', model%n_x, '(1x,f4.1))'
+    do i = 1, model%n_y
+       write(*,fmt=rowfmt) (model%density(i,j), j=1,model%n_x)
+    end do
+  end subroutine print_values
+
 end module diffusion
