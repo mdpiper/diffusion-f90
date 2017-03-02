@@ -125,9 +125,9 @@ contains
     integer :: i, j
     character(len=30) :: rowfmt
 
-    write(rowfmt,'(a,i4,a)') '(', model%n_x, '(1x,f4.1))'
+    write(rowfmt,'(a,i4,a)') '(', model%n_x, '(1x,f6.1))'
     do i = 1, model%n_y
-       write(*,fmt=rowfmt) (model%density(i,j), j=1,model%n_x)
+       write(*,fmt=rowfmt) model%density(i,:)
     end do
   end subroutine print_values
 
