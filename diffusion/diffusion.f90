@@ -32,7 +32,7 @@ contains
   subroutine initialize_from_defaults(model)
     type (diffusion_model), intent (out) :: model
 
-    model%dt = 5.
+    model%dt = 1.
     model%t_end = 20.
     model%n_x = 10
     model%n_y = 20
@@ -98,8 +98,8 @@ contains
     dx2_dy2_rho = dx2 * dy2 * rho
     coef = model%dt / (2. * (dx2 + dy2))
 
-    do j = 2, model%n_y-1
-       do i = 2, model%n_x-1
+    do i = 2, model%n_y-1
+       do j = 2, model%n_x-1
           model%density_tmp(i,j) = coef * ( &
                dx2*(model%density(i-1,j) + model%density(i+1,j)) + &
                dy2*(model%density(i,j-1) + model%density(i,j+1)) - &
