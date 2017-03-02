@@ -53,11 +53,11 @@ contains
     model%density = 0.
     model%density_tmp = 0.
 
-    call setBC(model%density)
-    call setBC(model%density_tmp)
+    call set_boundary_conditions(model%density)
+    call set_boundary_conditions(model%density_tmp)
   end subroutine initialize
 
-  subroutine setBC (z)
+  subroutine set_boundary_conditions(z)
     implicit none
     real, dimension (:,:), intent (out) :: z
 
@@ -69,7 +69,7 @@ contains
     do i = 0, size(z, 1)-1
        z(i+1,1) = top_x**2*.25 - (i-top_x*.5)**2
     end do
-  end subroutine setBC
+  end subroutine set_boundary_conditions
 
   subroutine cleanup(model)
     type (diffusion_model), intent (inout) :: model
