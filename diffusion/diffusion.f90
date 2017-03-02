@@ -77,10 +77,37 @@ contains
     deallocate (model%density_tmp)
   end subroutine cleanup
 
-  ! subroutine solve_2d()
-  ! end subroutine solve_2d
+  subroutine advance_in_time(model)
+    type (diffusion_model), intent (inout) :: model
 
-  ! subroutine advance_in_time()
-  ! end subroutine advance_in_time
+    call solve_2d(model)
+    model%density = model%density_tmp
+    model%t = model%t + model%dt
+  end subroutine advance_in_time
+
+  subroutine solve_2d(model)
+    type (diffusion_model), intent (inout) :: model
+
+    real, parameter :: rho = 0.
+    real :: dx2
+    real :: dy2
+    real :: dx2_dy2_rho
+    real :: coef
+    integer :: i, j
+
+    dx2 = model%dx**2
+    dy2 = model%dy**2
+    dx2_dy2_rho = dx2 * dy2 * rho
+    coef = model%dt / (2. * (dx2 + dy2))
+
+    do j = 2, model%n_y-1
+       do i = 2, model%n_x-1
+          model%density_tmp(i,j) = coef * ( &
+               dx2*(model%density(i-1,j) + model%density(i+1,j)) + &
+               dy2*(model%density(i,j-1) + model%density(i,j+1)) - &
+               dx2_dy2_rho )
+       end do
+    end do
+  end subroutine solve_2d
 
 end module diffusion
