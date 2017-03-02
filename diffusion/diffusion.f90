@@ -3,7 +3,6 @@ module diffusion
   implicit none
 
   type :: diffusion_model
-     private
      real :: dt
      real :: t
      real :: t_end
