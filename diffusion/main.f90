@@ -4,7 +4,6 @@ program main
   implicit none
 
   type (diffusion_model) :: model
-  integer :: i
 
   write(*,"(a)") "Start"
   call initialize_from_defaults(model)
