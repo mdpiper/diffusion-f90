@@ -1,7 +1,9 @@
+! An example of the diffusion equation.
 module diffusion
 
   implicit none
 
+  ! Define the attributes of the model.
   type :: diffusion_model
      real :: dt
      real :: t
@@ -19,6 +21,7 @@ module diffusion
 
 contains
 
+  ! Initializes the model with values read from a file.
   subroutine initialize_from_file(model, config_file)
     character (len=*), intent (in) :: config_file
     type (diffusion_model), intent (out) :: model
@@ -29,6 +32,7 @@ contains
     call initialize(model)
   end subroutine initialize_from_file
 
+  ! Initializes the model with default hardcoded values.
   subroutine initialize_from_defaults(model)
     type (diffusion_model), intent (out) :: model
 
@@ -39,6 +43,7 @@ contains
     call initialize(model)
   end subroutine initialize_from_defaults
 
+  ! Allocates memory and sets values for either initialization technique.
   subroutine initialize(model)
     type (diffusion_model), intent (inout) :: model
 
@@ -56,6 +61,7 @@ contains
     call set_boundary_conditions(model%density_tmp)
   end subroutine initialize
 
+  ! Sets boundary conditions on values array.
   subroutine set_boundary_conditions(z)
     implicit none
     real, dimension (:,:), intent (out) :: z
@@ -68,6 +74,7 @@ contains
     end do
   end subroutine set_boundary_conditions
 
+  ! Frees memory when program completes.
   subroutine cleanup(model)
     type (diffusion_model), intent (inout) :: model
 
@@ -75,6 +82,7 @@ contains
     deallocate (model%density_tmp)
   end subroutine cleanup
 
+  ! Steps the diffusion model forward in time.
   subroutine advance_in_time(model)
     type (diffusion_model), intent (inout) :: model
 
@@ -83,6 +91,7 @@ contains
     model%t = model%t + model%dt
   end subroutine advance_in_time
 
+  ! The solver for the two-dimensional diffusion equation.
   subroutine solve_2d(model)
     type (diffusion_model), intent (inout) :: model
 
@@ -108,6 +117,7 @@ contains
     end do
   end subroutine solve_2d
 
+  ! A helper routine for displaying model parameters.
   subroutine print_info(model)
     type (diffusion_model), intent (in) :: model
 
@@ -120,6 +130,7 @@ contains
     write(*,"(a10, f8.2)") "t_end:", model%t_end
   end subroutine print_info
 
+  ! A helper routine that prints the current state of the model.
   subroutine print_values(model)
     type (diffusion_model), intent (in) :: model
     integer :: i, j
