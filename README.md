@@ -2,31 +2,41 @@
 
 An example of the diffusion equation written in Fortran 90.
 
-## Install
+## Build, install, and run
 
-From the root directory of the repository, execute:
+To build this example,
+change to the root directory of this repository
+and execute:
 
 ```bash
 mkdir _build && cd _build
 cmake ..
 make
-make install
 ```
 
 Note that these commands install the diffusion package
 to the default location, **/usr/local**.
 If you'd like to install to an alternate location,
-replace the call to `cmake` above with
+modify the call to `cmake` with
 
     cmake -DCMAKE_INSTALL_PREFIX:PATH=/path/to/install ..
 
 where **/path/to/install** is your alternate install location.
 
-Run an example:
+Check that the example was built correctly
+by running the units tests:
+
+    make test
+
+To install, type:
+
+    make install
+
+Run the example with:
 
     run_diffusion
 
-and see diffusion in action!
+to see diffusion in action!
 
 ```
 Model values at time =   20.0
