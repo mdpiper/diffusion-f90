@@ -34,5 +34,6 @@
 # Emacs backups
 *~
 
-# My standard build directory
+# My standard build and install directories
 _build
+_install
