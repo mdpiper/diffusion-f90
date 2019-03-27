@@ -1,21 +1,19 @@
 include(CTest)
 
-add_test(MODEL_IRF1 test_from_defaults)
-add_test(MODEL_IRF2 test_from_file)
+add_test(model_irf1 test_from_defaults)
+add_test(model_irf2 test_from_file)
 
-set(BUILD_SHARED_LIBS ON)
+set(model_irf1_src test_from_defaults.f90)
+set(model_irf2_src test_from_file.f90)
 
-include_directories(${CMAKE_BINARY_DIR}/diffusion)
+include_directories(${CMAKE_Fortran_MODULE_DIRECTORY})
 
-set(model_irf1_sources test_from_defaults.f90)
-set(model_irf2_sources test_from_file.f90)
+add_executable(test_from_defaults ${model_irf1_src})
+target_link_libraries(test_from_defaults ${diffusion_lib})
 
-add_executable(test_from_defaults ${model_irf1_sources})
-add_executable(test_from_file ${model_irf2_sources})
+add_executable(test_from_file ${model_irf2_src})
+target_link_libraries(test_from_file ${diffusion_lib})
 
 file(
   COPY ${CMAKE_CURRENT_SOURCE_DIR}/test.cfg
   DESTINATION ${CMAKE_BINARY_DIR}/tests)
-
-target_link_libraries(test_from_defaults diffusion)
-target_link_libraries(test_from_file diffusion)
