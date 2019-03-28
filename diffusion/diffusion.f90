@@ -131,14 +131,14 @@ contains
   end subroutine print_info
 
   ! A helper routine that prints the current state of the model.
-  subroutine print_values(model)
+  subroutine print_values(file_unit, model)
     type (diffusion_model), intent (in) :: model
-    integer :: i, j
+    integer :: file_unit, i, j
     character(len=30) :: rowfmt
 
     write(rowfmt,'(a,i4,a)') '(', model%n_x, '(1x,f6.1))'
     do i = 1, model%n_y
-       write(*,fmt=rowfmt) model%density(i,:)
+       write(file_unit,fmt=rowfmt) model%density(i,:)
     end do
   end subroutine print_values
 
