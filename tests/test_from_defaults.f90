@@ -11,7 +11,7 @@ program test_model_sanity_from_defaults
   write(file_unit,*) "Done."
 
   write(file_unit,"(a)") "Model info..."
-  call print_info(m)
+  call print_info(file_unit, m)
 
   write(file_unit,"(a)") "Model initial values..."
   call print_values(file_unit, m)
