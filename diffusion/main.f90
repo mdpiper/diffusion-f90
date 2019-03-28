@@ -3,7 +3,9 @@ program main
   use diffusion
   implicit none
 
-  integer :: file_unit = 0
+  character (len=*), parameter :: output_file = "diffusionf.out"
+  integer, parameter :: file_unit = 1
+
   integer :: arg_count = 0
   character (len=80) :: arg
   type (diffusion_model) :: model
@@ -14,11 +16,14 @@ program main
   end do
 
   if (len_trim(arg) == 0) then
-     write(file_unit,"(a)") "Usage: run_diffusionf CONFIGURATION_FILE"
-     write(file_unit,"(a)")
-     write(file_unit,"(a)") "Run the diffusionf model with a configuration file."
+     write(*,"(a)") "Usage: run_diffusionf CONFIGURATION_FILE"
+     write(*,"(a)")
+     write(*,"(a)") "Run the diffusionf model with a configuration file."
+     write(*,"(a)") "Output is written to the file `diffusionf.out`."
      return
   end if
+
+  open(file_unit,file=output_file)
 
   write(file_unit,"(a)") "Start"
   call initialize_from_file(model, arg)
@@ -34,5 +39,7 @@ program main
 
   call cleanup(model)
   write(file_unit,"(a)") "Finish"
+
+  close(file_unit)
 
 end program main
