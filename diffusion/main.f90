@@ -25,8 +25,11 @@ program main
 
   open(file_unit,file=output_file)
 
-  write(file_unit,"(a)") "Start"
+  write(file_unit,"(a)") "Start model."
   call initialize_from_file(model, arg)
+
+  write(file_unit,"(a)") "Model info..."
+  call print_info(file_unit, model)
 
   write(file_unit,"(a)") "Model initial values..."
   call print_values(file_unit, model)
@@ -38,7 +41,7 @@ program main
   end do
 
   call cleanup(model)
-  write(file_unit,"(a)") "Finish"
+  write(file_unit,"(a)") "Finish model."
 
   close(file_unit)
 
