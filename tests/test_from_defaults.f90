@@ -3,20 +3,21 @@ program test_model_sanity_from_defaults
   use diffusion
   implicit none
 
+  integer :: file_unit = 0
   type (diffusion_model) :: m
 
-  write(*,"(a)",advance="no") "Initializing..."
+  write(file_unit,"(a)",advance="no") "Initializing..."
   call initialize_from_defaults(m)
-  write(*,*) "Done."
+  write(file_unit,*) "Done."
 
-  write(*,"(a)") "Model info..."
-  call print_info(m)
+  write(file_unit,"(a)") "Model info..."
+  call print_info(file_unit, m)
 
-  write(*,"(a)") "Model initial values..."
-  call print_values(m)
+  write(file_unit,"(a)") "Model initial values..."
+  call print_values(file_unit, m)
 
-  write(*,"(a)", advance="no") "Cleaning up arrays..."
+  write(file_unit,"(a)", advance="no") "Cleaning up arrays..."
   call cleanup(m)
-  write(*,*) "Done"
+  write(file_unit,*) "Done"
 
 end program test_model_sanity_from_defaults

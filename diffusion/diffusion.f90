@@ -118,27 +118,28 @@ contains
   end subroutine solve_2d
 
   ! A helper routine for displaying model parameters.
-  subroutine print_info(model)
+  subroutine print_info(file_unit, model)
     type (diffusion_model), intent (in) :: model
+    integer :: file_unit
 
-    write(*,"(a10, i8)") "n_x:", model%n_x
-    write(*,"(a10, i8)") "n_y:", model%n_y
-    write(*,"(a10, f8.2)") "dx:", model%dx
-    write(*,"(a10, f8.2)") "dy:", model%dy
-    write(*,"(a10, f8.2)") "dt:", model%dt
-    write(*,"(a10, f8.2)") "t:", model%t
-    write(*,"(a10, f8.2)") "t_end:", model%t_end
+    write(file_unit,"(a10, i8)") "n_x:", model%n_x
+    write(file_unit,"(a10, i8)") "n_y:", model%n_y
+    write(file_unit,"(a10, f8.2)") "dx:", model%dx
+    write(file_unit,"(a10, f8.2)") "dy:", model%dy
+    write(file_unit,"(a10, f8.2)") "dt:", model%dt
+    write(file_unit,"(a10, f8.2)") "t:", model%t
+    write(file_unit,"(a10, f8.2)") "t_end:", model%t_end
   end subroutine print_info
 
   ! A helper routine that prints the current state of the model.
-  subroutine print_values(model)
+  subroutine print_values(file_unit, model)
     type (diffusion_model), intent (in) :: model
-    integer :: i, j
+    integer :: file_unit, i, j
     character(len=30) :: rowfmt
 
     write(rowfmt,'(a,i4,a)') '(', model%n_x, '(1x,f6.1))'
     do i = 1, model%n_y
-       write(*,fmt=rowfmt) model%density(i,:)
+       write(file_unit,fmt=rowfmt) model%density(i,:)
     end do
   end subroutine print_values
 
