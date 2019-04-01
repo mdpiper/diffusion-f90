@@ -32,6 +32,17 @@ To install, type:
 
     make install
 
+The installed model files are organized as follows:
+```
+.
+|-- bin
+|   `-- run_diffusionf
+|-- include
+|   `-- diffusion.mod
+`-- lib
+    `-- libdiffusionf.so
+```
+
 Run the model with the `run_diffusionf` program,
 which takes a model configuration file
 (see [test.cfg](./tests/test.cfg) as an example)
